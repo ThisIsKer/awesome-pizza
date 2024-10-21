@@ -31,6 +31,16 @@ public class OrderController {
         return orderService.getAllOrdersCompleteInfo();
     }
 
+    @GetMapping("/{id}")
+    public Order getOrderById(@PathVariable Long id) {
+        return orderService.getOrderById(id);
+    }
+
+    @GetMapping("/{id}/complete-info")
+    public OrderCompleteInfoWrapper getOrderCompleteInfoById(@PathVariable Long id) {
+        return orderService.getOrderCompleteInfoById(id);
+    }
+
     @PutMapping("/{id}/in-progress")
     public void setOrderInProgress(@PathVariable Long id) {
         orderService.setOrderInProgress(id);

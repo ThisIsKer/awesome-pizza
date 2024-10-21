@@ -27,6 +27,22 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public Order getOrderById(Long orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+    }
+
+    public OrderCompleteInfoWrapper getOrderCompleteInfoById(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        OrderCompleteInfoWrapper orderCompleteInfoWrapper = new OrderCompleteInfoWrapper();
+        orderCompleteInfoWrapper.setOrder(order);
+        orderCompleteInfoWrapper.setPizzas(new ArrayList<>());
+        order.getPizzas().forEach(pizzaId -> {
+            Pizza pizza = pizzaRepository.findById(pizzaId).orElseThrow(() -> new RuntimeException("Pizza not found"));
+            orderCompleteInfoWrapper.getPizzas().add(pizza);
+        });
+        return orderCompleteInfoWrapper;
+    }
+
     public List<OrderCompleteInfoWrapper> getAllOrdersCompleteInfo() {
         List<Order> orders = orderRepository.findAll();
         ArrayList<OrderCompleteInfoWrapper> orderCompleteInfoWrappers = new ArrayList<>();
