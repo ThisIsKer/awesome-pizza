@@ -22,7 +22,7 @@ public class Pizza {
     private List<String> ingredients;
 
     @Enumerated(EnumType.STRING)
-    private Order.Status status;
+    private Pizza.Status status;
 
     public enum Status {
         ACTIVE,
